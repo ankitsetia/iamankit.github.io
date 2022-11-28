@@ -1,21 +1,63 @@
-alert("Happy Birthday Amrit❤️🎂🎁 click On Heart❤️💗")
 
 
-function heart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = Math.random() * 2 + 3;
-    heart.innerText = "❤️";
-    document.body.appendChild(heart);
-    setTimeout(() => {
-        heart.remove();
 
 
-    }, 3000)
+
+var tablinks = document.getElementsByClassName("tab-links");
+
+var tabcontents = document.getElementsByClassName("tab-contents");
+
+function opentab(tabname) {
+    for (tablink of tablinks) {
+        tablink.classList.remove("active-link");
+    }
+
+    for (tabcontent of tabcontents) {
+        tabcontent.classList.remove("active-tab");
+    }
+    event.currentTarget.classList.add("active-link");
+
+    document.getElementById(tabname).classList.add("active-tab")
+
 }
 
-setInterval(heart, 200);
+
+
+
+
+var sidemenu = document.getElementById("sidemenu");
+
+
+function openmenu() {
+    sidemenu.style.right = "0";
+}
+
+
+
+function closemenu() {
+    sidemenu.style.right = "-200px";
+}
+
+
+
+
+
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxuth7xVtlhT5dMuRMkjYj6XyjBIYIvlmaganeTh7XkOpGNy-RDjo5MRF6GRaEXgga8pQ/exec'
+const form = document.forms['submit-to-google-sheet']
+const msg = document.getElementById("msg");
+
+form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+            msg.innerHTML = "Submit Successfully"
+            setTimeout(function () {
+                msg.innerHTML = ""
+            },2000)
+            form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+})
 
 
 
